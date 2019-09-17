@@ -309,5 +309,6 @@ public:
         }
     }
 
+
 };
 #endif // ADAPTEDNB_H

@@ -7,25 +7,24 @@ using namespace std;
 
 class Graph {
 public:
-
+    char cluedoBoard [1][8][13]=
+    {
+        {
+            {'x','x','7','.','x','x','x','x','x','.','9','.','x'},
+            {'x','x','.','.','.','.','8','0','.','.','.','.','x'},
+            {'x','x','.','.','.','.','x','x','x','.','.','.','.'},
+            {'x','x','.','.','.','0','x','x','x','0','.','.','1'},
+            {'6','.','.','.','.','.','x','x','x','.','.','.','1'},
+            {'5','.','.','.','.','.','x','x','x','.','.','.','.'},
+            {'.','.','.','.','.','.','.','0','.','.','.','.','x'},
+            {'.','4','x','x','.','.','.','3','.','.','.','2','x'},
+        }
+    };
     int size;
     LinkedList<Vertex*> nodes;
 
     Graph() {
         this->size = 0;
-        char cluedoBoard [1][8][13]=
-        {
-            {
-                {'x','x','7','.','x','x','x','x','x','.','9','.','x'},
-                {'x','x','.','.','.','.','8','0','.','.','.','.','x'},
-                {'x','x','.','.','.','.','x','x','x','.','.','.','.'},
-                {'x','x','.','.','.','0','x','x','x','0','.','.','1'},
-                {'6','.','.','.','.','.','x','x','x','.','.','.','1'},
-                {'5','.','.','.','.','.','x','x','x','.','.','.','.'},
-                {'.','.','.','.','.','.','.','0','.','.','.','.','x'},
-                {'.','4','x','x','.','.','.','3','.','.','.','2','x'},
-            }
-        };
         createGraphFrom3DMaze(cluedoBoard);
     }
 
@@ -106,6 +105,21 @@ public:
             //cout<<tmp->coords.level<<","<<tmp->coords.row<<","<<tmp->coords.col<<endl;
             if(tmp->entrance&&tmp->doorNumber==tilePosition)
                 return tmp;
+        }
+        return nullptr;
+    }
+
+    Coordinates* getVertexCoordinates(int tilePosition){
+        Coordinates* tmpCoordinates = new Coordinates();
+        for(int i=0;i<this->size;i++){
+            Vertex* tmp = *nodes.get(i);
+            //cout<<tmp->coords.level<<","<<tmp->coords.row<<","<<tmp->coords.col<<endl;
+            if(tmp->tileIndex==tilePosition){
+                tmpCoordinates->level = tmp->coords.level;
+                tmpCoordinates->row = tmp->coords.row;
+                tmpCoordinates->col = tmp->coords.col;
+                return tmpCoordinates;
+            }
         }
         return nullptr;
     }
